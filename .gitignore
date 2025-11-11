@@ -1,0 +1,29 @@
+# Configuration files with sensitive information
+aws-config.json
+github-config.json
+
+# PowerShell
+*.ps1.bak
+Request-Meeting.ps1
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+dist/
+*.egg-info/
+
+# Reports and output files
+pr_metrics_report.md
+pr_metrics_report.txt
+
+# OS
+.DS_Store
+Thumbs.db
+
