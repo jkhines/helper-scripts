@@ -325,5 +325,5 @@ When adding new scripts:
 
 ## License
 
-This repository contains utility scripts for personal/team use. Use at your own discretion.
+This repository is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
