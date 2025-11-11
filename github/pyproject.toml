@@ -1,0 +1,9 @@
+[project]
+name = "github-pr-metrics"
+version = "1.0.0"
+description = "GitHub PR Metrics Analyzer - Fetches and analyzes PR metrics for specified repositories"
+requires-python = ">=3.8"
+dependencies = [
+    "requests>=2.31.0",
+]
+

@@ -19,6 +19,9 @@ build/
 dist/
 *.egg-info/
 
+# uv (Python package manager)
+.venv/
+
 # Reports and output files
 pr_metrics_report.md
 pr_metrics_report.txt
