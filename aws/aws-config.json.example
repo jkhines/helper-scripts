@@ -1,0 +1,13 @@
+{
+  "sso_start_url": "https://your-sso-portal.awsapps.com/start",
+  "sso_region": "us-west-2",
+  "region": "us-west-2",
+  "accounts": {
+    "sb": "000000000000",
+    "dev": "000000000000",
+    "prod": "000000000000",
+    "omdev": "000000000000",
+    "omstaging": "000000000000",
+    "omprod": "000000000000"
+  }
+}

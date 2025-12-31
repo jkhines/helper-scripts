@@ -5,7 +5,7 @@ Fetch short-term AWS credentials via AWS IAM Identity Center (SSO) and export th
 .DESCRIPTION
 Automates the browser-based SSO login (PingOne) using AWS CLI v2. After a successful login it:
 1. Lists SSO accounts.
-2. Lets you choose one of the predefined accounts (dev, staging, prod).
+2. Lets you choose one of the predefined accounts (sb, dev, prod, omdev, omstaging, omprod).
 3. Lets you select a role (if multiple are available).
 4. Retrieves role credentials.
 5. Sets AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN for the current PowerShell session.
@@ -14,18 +14,18 @@ Run the script in a PowerShell window that already has AWS CLI v2 installed and 
 
 .REQUIREMENTS
 - AWS CLI v2 (https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
-- Configuration file: Copy aws-config.json.example to aws-config.json in the repository root and update with your AWS account IDs and SSO settings.
+- Configuration file: Copy aws-config.json.example to aws-config.json in the same directory as this script and update with your AWS account IDs and SSO settings.
 - A profile named "sso" configured via `aws configure sso --profile sso` (will be auto-created if missing using values from config file).
 #>
 
 [CmdletBinding()]
 param(
-    [ValidateSet('dev','staging','prod')]
+    [ValidateSet('sb','dev','prod','omdev','omstaging','omprod')]
     [string]$Account,
 
     [string]$Profile = 'sso',
     
-    [string]$ConfigPath = (Join-Path $PSScriptRoot '..\aws-config.json')
+    [string]$ConfigPath = (Join-Path $PSScriptRoot 'aws-config.json')
 )
 
 # Load configuration from JSON file
@@ -37,9 +37,12 @@ $config = Get-Content $configFile -Raw | ConvertFrom-Json
 
 # Map friendly names to account IDs from config
 $AccountMap = @{
-    dev      = $config.accounts.dev
-    staging  = $config.accounts.staging
-    prod     = $config.accounts.prod
+    sb        = $config.accounts.sb
+    dev       = $config.accounts.dev
+    prod      = $config.accounts.prod
+    omdev     = $config.accounts.omdev
+    omstaging = $config.accounts.omstaging
+    omprod    = $config.accounts.omprod
 }
 
 function Test-AwsCli {
@@ -127,7 +130,7 @@ try {
     Test-AwsCli
 
     if (-not $Account) {
-        $Account = Read-Host 'Enter account name (dev, staging, prod)'
+        $Account = Read-Host 'Enter account name (sb, dev, prod, omdev, omstaging, omprod)'
     }
     $AccountId = $AccountMap[$Account]
     if (-not $AccountId) {
